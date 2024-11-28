@@ -17,7 +17,7 @@ export default function StakeView(
     {
         taker: Address;
         usdeAddress: Address | undefined;
-        contractAddress: Address | undefined;
+        contractAddress: Address;
         activeTab: String
     }
 ) {
