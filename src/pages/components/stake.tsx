@@ -16,7 +16,7 @@ export default function StakeView(
     } : 
     {
         taker: Address;
-        usdeAddress: Address | undefined;
+        usdeAddress: Address ;
         contractAddress: Address;
         activeTab: String
     }
@@ -246,8 +246,8 @@ function ButtonView({
 
 
     const { data } = useSimulateContract({
-      address: usdeAddress,
-      abi: erc20Abi,
+      address: contractAddress,
+      abi: contractABI,
       functionName: "cooldownShares",
       args: [contractAddress, parseUnits(amount,18)],
     });
