@@ -71,7 +71,7 @@ const usdeAddress = '0x4c9EDD5852cd905f086C759E8383e09bff1E68B3';  //MainNet
             <h2 className="text-lg font-bold mb-2">{activeTab}</h2>
 
             <TabView 
-                 taker={address}
+                 taker={address!}
                  usdeAddress={usdeAddress}
                  contractAddress={contractAddress}
                  activeTab={activeTab}
@@ -106,8 +106,8 @@ function TabView ({
     return(
       <StakeView 
                  taker={taker}
-                 usdeAddress={usdeAddress}
-                 contractAddress={contractAddress}
+                 usdeAddress={usdeAddress!}
+                 contractAddress={contractAddress!}
                  activeTab={activeTab}
             />
     )
@@ -116,8 +116,8 @@ function TabView ({
     return(
       <UnstakeView 
                  taker={taker}
-                 usdeAddress={usdeAddress}
-                 contractAddress={contractAddress}
+                 usdeAddress={usdeAddress!}
+                 contractAddress={contractAddress!}
                  activeTab={activeTab}
             />
     )
@@ -126,8 +126,8 @@ function TabView ({
     return(
       <WithdrawView
                  taker={taker}
-                 usdeAddress={usdeAddress}
-                 contractAddress={contractAddress}
+                 usdeAddress={usdeAddress!}
+                 contractAddress={contractAddress!}
                  activeTab={activeTab}
             />
     )
