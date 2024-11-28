@@ -122,10 +122,10 @@ const { data: balancePiggy, isLoading } = useReadContract({
   account: taker,
 });
 
-return(
+return(balancePiggy &&
   <div className="flex justify-between items-center">
   <span className="text-sm text-gray-500">
-      Balance: {isLoading ? 'Loading...' : `${formatUnits(balancePiggy, 18)}`} {symbol}
+   balancePiggyBalance: {isLoading ? 'Loading...' : `${formatUnits(balancePiggy, 18)}`} {symbol}
   </span>
   
 </div>
