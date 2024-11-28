@@ -16,15 +16,15 @@ export default function WitdrawView(
     } : 
     {
         taker: Address;
-        usdeAddress: Address | undefined;
-        contractAddress: Address | undefined;
+        usdeAddress: Address;
+        contractAddress: Address;
         activeTab: String
     }
 ) {
 const [amount, setAmount] = useState<string>('');
 const { data: walletClient } = useWalletClient();
 var amountAvailable = 0;
-// Leggi il saldo di USDe dell'utente
+
 const { data: balanceData, isLoading } = useReadContract({
     address: contractAddress,
     abi: contractABI,
@@ -32,17 +32,23 @@ const { data: balanceData, isLoading } = useReadContract({
     args: [taker],
     account: taker,
 });
-if(balanceData) {
+
+interface Output {
+  cooldownEnd: number;
+  underlyingAmount: number;
+}
+
+if(balanceData && Array.isArray(balanceData)) {
     const currentTimestamp = Math.floor(Date.now() / 1000);
     console.log("Current"+currentTimestamp);
-    console.log("SC From"+balanceData[0]);
+    
     if(currentTimestamp > balanceData[0])
         amountAvailable = balanceData[1];
     }
 const handleMaxClick = () => {
-if (balanceData) {
+if (balanceData && Array.isArray(balanceData) ) {
 
-  const maxAmount = formatUnits(amountAvailable, 18); 
+  const maxAmount = formatUnits(BigInt(amountAvailable), 18); 
   setAmount(maxAmount);
 }
 };
@@ -121,7 +127,7 @@ const { data, isLoading } = useReadContract({
   args: [taker],
   account: taker,
 });
-if(data) {
+if(data && Array.isArray(data)) {
 const currentTimestamp = Math.floor(Date.now() / 1000);
 if(currentTimestamp > data[0])
     amountAvailable = data[1];
@@ -145,8 +151,8 @@ return(
 
 
     const { data } = useSimulateContract({
-      address: usdeAddress,
-      abi: erc20Abi,
+      address: contractAddress,
+      abi: contractABI,
       functionName: "cooldownShares",
       args: [contractAddress, parseUnits(amount,18)],
     });

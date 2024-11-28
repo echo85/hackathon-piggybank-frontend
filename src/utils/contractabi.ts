@@ -35,9 +35,9 @@ export const contractABI = [
             ],
             outputs: [
                 {
-                    "name": "assets",
-                    "type": "uint256",
-                    "internalType": "uint256"
+                    name: "assets",
+                    type: "uint256",
+                    internalType: "uint256"
                 }
             ],
             stateMutability: "nonpayable"
@@ -54,14 +54,14 @@ export const contractABI = [
             ],
             outputs: [
                 {
-                    "name": "cooldownEnd",
-                    "type": "uint104",
-                    "internalType": "uint104"
+                    name: "cooldownEnd",
+                    type: "uint104",
+                    internalType: "uint104"
                 },
                 {
-                    "name": "underlyingAmount",
-                    "type": "uint152",
-                    "internalType": "uint152"
+                    name: "underlyingAmount",
+                    type: "uint152",
+                    internalType: "uint152"
                 }
             ],
             stateMutability: "view"

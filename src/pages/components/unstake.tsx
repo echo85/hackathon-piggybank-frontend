@@ -16,8 +16,8 @@ export default function UnstakeView(
     } : 
     {
         taker: Address;
-        usdeAddress: Address | undefined;
-        contractAddress: Address | undefined;
+        usdeAddress: Address;
+        contractAddress: Address;
         activeTab: String
     }
 ) {
@@ -115,7 +115,7 @@ const { data: balancePiggy, isLoading } = useReadContract({
   account: taker,
 });
 
-return(
+return(balancePiggy &&
   <div className="flex justify-between items-center">
   <span className="text-sm text-gray-500">
       Balance: {isLoading ? 'Loading...' : `${formatUnits(balancePiggy, 18)}`} {symbol}
@@ -134,8 +134,8 @@ return(
 
 
     const { data } = useSimulateContract({
-      address: usdeAddress,
-      abi: erc20Abi,
+      address: contractAddress,
+      abi: contractABI,
       functionName: "cooldownShares",
       args: [contractAddress, parseUnits(amount,18)],
     });
