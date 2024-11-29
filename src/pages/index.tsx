@@ -34,20 +34,14 @@ const usdeAddress = '0x4c9EDD5852cd905f086C759E8383e09bff1E68B3';  //MainNet
       </Head>
       
       <div data-theme>
-       
-      <ConnectButton />
+      <div className="flex justify-center items-center bg-gray-0 p-3">
+      {<ConnectButton />}
+        </div>
+     
         <div className="flex justify-center items-center bg-gray-0 p-3">
              <img src="/logo.png" width="200px" alt="Piggy Bank" className="h-auto max-w-xsd" />
         </div>
         
-        
-        
-       
-        
-        {!isConnected ? (
-           <ConnectButton />
-         
-        ) : (
           <div className="max-w-md mx-auto p-4">
           {/* Tabs */}
           <div className="flex border-b border-gray-300">
@@ -75,13 +69,14 @@ const usdeAddress = '0x4c9EDD5852cd905f086C759E8383e09bff1E68B3';  //MainNet
                  usdeAddress={usdeAddress}
                  contractAddress={contractAddress}
                  activeTab={activeTab}
+                 isConnected={isConnected}
             />
            
           </div>
         </div>
             
           
-        )}
+       
       </div>
 
       
@@ -94,13 +89,15 @@ function TabView ({
     taker, 
     usdeAddress,
     contractAddress,
-    activeTab
+    activeTab,
+    isConnected
 } : 
 {
     taker: Address;
     usdeAddress: Address | undefined;
     contractAddress: Address | undefined;
     activeTab: String
+    isConnected: Boolean
 }) {
   if(activeTab == "Stake") {
     return(
@@ -109,6 +106,7 @@ function TabView ({
                  usdeAddress={usdeAddress!}
                  contractAddress={contractAddress!}
                  activeTab={activeTab}
+                 isConnected={isConnected}
             />
     )
   }
@@ -119,6 +117,7 @@ function TabView ({
                  usdeAddress={usdeAddress!}
                  contractAddress={contractAddress!}
                  activeTab={activeTab}
+                 isConnected={isConnected}
             />
     )
   }
@@ -129,6 +128,7 @@ function TabView ({
                  usdeAddress={usdeAddress!}
                  contractAddress={contractAddress!}
                  activeTab={activeTab}
+                 isConnected={isConnected}
             />
     )
   }

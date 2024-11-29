@@ -12,13 +12,16 @@ export default function UnstakeView(
         taker, 
         usdeAddress,
         contractAddress,
-        activeTab
+        activeTab,
+        isConnected
+
     } : 
     {
         taker: Address;
         usdeAddress: Address;
         contractAddress: Address;
-        activeTab: String
+        activeTab: String;
+        isConnected: Boolean;
     }
 ) {
 const [amount, setAmount] = useState<string>('');
@@ -75,12 +78,13 @@ const handleDeposit = async () => {
                             <div className="flex justify-between items-center">
         
                                <BalancePiggyView taker={taker} activeTab={activeTab}/>
+                               {isConnected && 
                                 <button
                                     onClick={handleMaxClick}
                                     className="text-indigo-500 text-sm font-semibold"
                                 >
                                     Max
-                                </button>
+                                </button>}
                             </div>
                            
                             
@@ -115,14 +119,25 @@ const { data: balancePiggy, isLoading } = useReadContract({
   account: taker,
 });
 
-return(balancePiggy &&
-  <div className="flex justify-between items-center">
-  <span className="text-sm text-gray-500">
-      Balance: {isLoading ? 'Loading...' : `${formatUnits(balancePiggy, 18)}`} {symbol}
-  </span>
-  
-</div>
-)};
+if(balancePiggy) {
+  return(
+    <div className="flex justify-between items-center">
+    <span className="text-sm text-gray-500">
+        Balance: {isLoading ? 'Loading...' : `${formatUnits(balancePiggy, 18)}`} {symbol}
+    </span>
+    
+  </div>
+  )
+} else {
+  return(
+    <div className="flex justify-between items-center">
+    <span className="text-sm text-gray-500">
+        Balance: 0 {symbol}
+    </span>
+    
+  </div>
+  )};
+}
 
   function UnstakeButton({
     taker,

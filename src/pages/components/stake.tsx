@@ -12,13 +12,15 @@ export default function StakeView(
         taker, 
         usdeAddress,
         contractAddress,
-        activeTab
+        activeTab,
+        isConnected
     } : 
     {
         taker: Address;
         usdeAddress: Address ;
         contractAddress: Address;
-        activeTab: String
+        activeTab: String;
+        isConnected: Boolean;
     }
 ) {
 const [amount, setAmount] = useState<string>('');
@@ -82,12 +84,12 @@ const handleDeposit = async () => {
                             <div className="flex justify-between items-center">
         
                                <BalancePiggyView taker={taker} activeTab={activeTab}/>
-                                <button
+                               {isConnected && <button
                                     onClick={handleMaxClick}
                                     className="text-indigo-500 text-sm font-semibold"
                                 >
                                     Max
-                                </button>
+                                </button>}
                             </div>
                            
                             
@@ -125,7 +127,7 @@ const { data: balancePiggy, isLoading } = useReadContract({
 return(balancePiggy &&
   <div className="flex justify-between items-center">
   <span className="text-sm text-gray-500">
-   balancePiggyBalance: {isLoading ? 'Loading...' : `${formatUnits(balancePiggy, 18)}`} {symbol}
+   balancePiggyBalance: {isLoading ? 'Loading...' : `${parseFloat(formatUnits(balancePiggy, 18)).toFixed(2)}`} {symbol}
   </span>
   
 </div>

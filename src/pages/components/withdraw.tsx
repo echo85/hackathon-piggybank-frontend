@@ -12,13 +12,15 @@ export default function WitdrawView(
         taker, 
         usdeAddress,
         contractAddress,
-        activeTab
+        activeTab,
+        isConnected
     } : 
     {
         taker: Address;
         usdeAddress: Address;
         contractAddress: Address;
-        activeTab: String
+        activeTab: String;
+        isConnected: Boolean
     }
 ) {
 const [amount, setAmount] = useState<string>('');
@@ -45,13 +47,7 @@ if(balanceData && Array.isArray(balanceData)) {
     if(currentTimestamp > balanceData[0])
         amountAvailable = balanceData[1];
     }
-const handleMaxClick = () => {
-if (balanceData && Array.isArray(balanceData) ) {
 
-  const maxAmount = formatUnits(BigInt(amountAvailable), 18); 
-  setAmount(maxAmount);
-}
-};
 // Simulazione della transazione
 const { data } = useSimulateContract({
   address: contractAddress,
