@@ -1,5 +1,3 @@
-
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { erc20Abi, Address } from "viem";
 import { parseUnits, formatUnits } from 'viem';
 import { useWriteContract, useSimulateContract, useReadContract, useWaitForTransactionReceipt } from 'wagmi';
@@ -25,7 +23,7 @@ export default function StakeView(
 ) {
 const [amount, setAmount] = useState<string>('');
 const { data: walletClient } = useWalletClient();
-// Leggi il saldo di USDe dell'utente
+
 const { data: balanceData, isLoading } = useReadContract({
     address: usdeAddress,
     abi: erc20Abi,
@@ -76,7 +74,7 @@ const handleDeposit = async () => {
 <div className="space-y-4">
               <input
                                 type="number"
-                                placeholder="Amount to Deposit"
+                                placeholder="Amount of USDe to Deposit"
                                 value={amount}
                                 onChange={(e) => setAmount(e.target.value)}
                                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-indigo-300"
@@ -127,7 +125,7 @@ const { data: balancePiggy, isLoading } = useReadContract({
 return(balancePiggy &&
   <div className="flex justify-between items-center">
   <span className="text-sm text-gray-500">
-   balancePiggyBalance: {isLoading ? 'Loading...' : `${parseFloat(formatUnits(balancePiggy, 18)).toFixed(2)}`} {symbol}
+   Balance: {isLoading ? 'Loading...' : `${parseFloat(formatUnits(balancePiggy, 18)).toFixed(2)}`} {symbol}
   </span>
   
 </div>
@@ -157,8 +155,6 @@ function ButtonView({
     activeTab: String;
   }) {
 
-
-    // 1. Read from erc20, check approval for the determined spender to spend sellToken
     const { data: allowance, refetch } = useReadContract({
       address: usdeAddress,
       abi: erc20Abi,
@@ -174,21 +170,19 @@ function ButtonView({
       args: [contractAddress, parseUnits(amount,18)],
     });
 
-        // Define useWriteContract for the 'approve' operation
         const {
           data: writeContractResult,
           writeContractAsync: writeContract,
           error,
         } = useWriteContract();
     
-        // useWaitForTransactionReceipt to wait for the approval transaction to complete
         const { data: approvalReceiptData, isLoading: isApproving } =
           useWaitForTransactionReceipt({
             hash: writeContractResult,
           });
 
-          // Call `refetch` when the transaction succeeds
       useEffect(() => {
+        console.log(data);
         if (data) {
           refetch();
         }
@@ -238,54 +232,4 @@ function ButtonView({
                 </button>
         )
   }
-  function UnstakeButton({
-    taker,
-    activeTab
-  }: {
-    taker: Address;
-    activeTab: String;
-  }) {
-
-
-    const { data } = useSimulateContract({
-      address: contractAddress,
-      abi: contractABI,
-      functionName: "cooldownShares",
-      args: [contractAddress, parseUnits(amount,18)],
-    });
-
-        // Define useWriteContract for the 'approve' operation
-        const {
-          data: writeContractResult,
-          writeContractAsync: writeContract,
-          error,
-        } = useWriteContract();
-    
-        // useWaitForTransactionReceipt to wait for the approval transaction to complete
-        const { data: approvalReceiptData, isLoading: isApproving } =
-          useWaitForTransactionReceipt({
-            hash: writeContractResult,
-          });
-
-       
-      if (error) {
-        return <div>Something went wrong: {error.message}</div>;
-      }
-
-         
-
-        return( 
-          <button
-                  onClick={handleDeposit}
-                  disabled={!walletClient || !amount || isPending}
-                  className={`w-full px-4 py-2 text-white rounded-lg ${
-                    !walletClient || !amount
-                      ? 'bg-gray-400'
-                      : 'bg-indigo-500 hover:bg-indigo-600'
-                  }`}
-                >
-                  {isPending ? 'Confirming...' : 'Deposit'}
-                </button>
-        )
-  } 
 }

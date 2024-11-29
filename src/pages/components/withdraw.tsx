@@ -1,10 +1,9 @@
 
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { erc20Abi, Address } from "viem";
-import { parseUnits, formatUnits } from 'viem';
+import { Address } from "viem";
+import { parseUnits} from 'viem';
 import { useWriteContract, useSimulateContract, useReadContract, useWaitForTransactionReceipt } from 'wagmi';
 import { type BaseError, useWalletClient } from 'wagmi';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { contractABI } from "../../utils/contractabi";
 
 export default function WitdrawView(
@@ -160,7 +159,6 @@ return(
           error,
         } = useWriteContract();
     
-        // useWaitForTransactionReceipt to wait for the approval transaction to complete
         const { data: approvalReceiptData, isLoading: isApproving } =
           useWaitForTransactionReceipt({
             hash: writeContractResult,
@@ -170,8 +168,6 @@ return(
       if (error) {
         return <div>Something went wrong: {error.message}</div>;
       }
-
-         
 
         return( 
           <button
