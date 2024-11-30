@@ -19,7 +19,7 @@ if(chain && (chain.id == 1 || chain.id == 73571)) { //Ethereum Mainnet or VTestN
   usdeAddress = '0x4c9EDD5852cd905f086C759E8383e09bff1E68B3';  //USDe
 }
 else if(chain && chain.id == 52085143) { //Ble Testnet
-  contractAddress = '0xb1bef34EF5e0D47baF534e014E7E44fbaf85b961'; // Smart Piggy Contract
+  contractAddress = '0xbCd326BccB09B91e307F88F98C666f4C04F2f61e'; // Smart Piggy Contract
   usdeAddress = '0x426E7d03f9803Dd11cb8616C65b99a3c0AfeA6dE';  //USDe
 }
 else { //Sepolia
