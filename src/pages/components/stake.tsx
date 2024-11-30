@@ -1,7 +1,8 @@
 import { erc20Abi, Address } from "viem";
+import { sepolia } from 'wagmi/chains'
 import { parseUnits, formatUnits } from 'viem';
 import { useWriteContract, useSimulateContract, useReadContract, useWaitForTransactionReceipt } from 'wagmi';
-import { type BaseError, useWalletClient } from 'wagmi';
+import { type BaseError, useWalletClient, useAccount } from 'wagmi';
 import { useState, useEffect } from 'react';
 import { contractABI } from "../../utils/contractabi";
 
@@ -23,6 +24,7 @@ export default function StakeView(
 ) {
 const [amount, setAmount] = useState<string>('');
 const { data: walletClient } = useWalletClient();
+const { chain } = useAccount();
 
 const { data: balanceData, isLoading } = useReadContract({
     address: usdeAddress,
@@ -31,6 +33,7 @@ const { data: balanceData, isLoading } = useReadContract({
     args: [taker],
     account: taker,
 });
+
 
 const handleMaxClick = () => {
 if (balanceData) {
@@ -70,8 +73,17 @@ const handleDeposit = async () => {
     }
   };
 
+  var token;
+  if(chain && (chain.id == 1 || chain.id == 73571))
+    token = "ETH"
+  else 
+    token = "Piggy"
+
     return (
 <div className="space-y-4">
+<p className="mt-6 text-lg md:text-sm text-gray leading-relaxed">
+        This vault is a combination of (sUSDe + {token} Token)
+      </p>
               <input
                                 type="number"
                                 placeholder="Amount of USDe to Deposit"
@@ -125,10 +137,9 @@ const { data: balancePiggy, isLoading } = useReadContract({
 return(balancePiggy &&
   <div className="flex justify-between items-center">
   <span className="text-sm text-gray-500">
-   Balance: {isLoading ? 'Loading...' : `${parseFloat(formatUnits(balancePiggy, 18)).toFixed(2)}`} {symbol}
+   Balance on {chain?.name}: {isLoading ? 'Loading...' : `${parseFloat(formatUnits(balancePiggy, 18)).toFixed(2)}`} {symbol}
   </span>
-  
-</div>
+  </div>
 )};
 
 function ButtonView({

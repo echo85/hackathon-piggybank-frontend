@@ -1,16 +1,12 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import type { NextPage } from 'next';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
-import { type BaseError, useAccount, useWalletClient } from 'wagmi';
-import { useWriteContract, useSimulateContract, useReadContract } from 'wagmi';
-import { parseUnits, formatUnits } from 'viem';
-import { usdeABI } from "../utils/usdeabi";
-import { contractABI } from "../utils/contractabi";
+import { useAccount } from 'wagmi';
 import StakeView from "./components/stake";
 import UnstakeView from "./components/unstake";
 import WithdrawView from "./components/withdraw";
-import { erc20Abi, Address } from "viem";
+import { Address } from "viem";
 
 export const Home: NextPage = () => {
 const { address, isConnected, chain } = useAccount();
@@ -18,16 +14,16 @@ const [activeTab, setActiveTab] = useState("Stake");
 
 var contractAddress: Address;
 var usdeAddress: Address;
-if(chain && chain.id == 1) { //Ethereum Mainnet
-  contractAddress = '0x4c9EDD5852cd905f086C759E8383e09bff1E68B3'; // Smart Piggy Contract 
+if(chain && (chain.id == 1 || chain.id == 73571)) { //Ethereum Mainnet or VTestNest on Tenderly
+  contractAddress = '0x3099a3a1b0022163607408598e9d8a646f50e71d'; // Smart Piggy Contract 
   usdeAddress = '0x4c9EDD5852cd905f086C759E8383e09bff1E68B3';  //USDe
 }
-else if(chain && chain.id == 73571) { //Virtual TestNet on Tenderly (Fork of Mainnet)
-  contractAddress = '0xB90FfB53387751dc2ff0eEFC890a628BE5d29254'; // Smart Piggy Contract
-  usdeAddress = '0x4c9EDD5852cd905f086C759E8383e09bff1E68B3';  //USDe
+else if(chain && chain.id == 52085143) { //Ble Testnet
+  contractAddress = '0xb1bef34EF5e0D47baF534e014E7E44fbaf85b961'; // Smart Piggy Contract
+  usdeAddress = '0x426E7d03f9803Dd11cb8616C65b99a3c0AfeA6dE';  //USDe
 }
 else { //Sepolia
-  contractAddress = '0x4E91C2E99e0f4D1584156EA19A716AbDAFBD8359'; // Smart Piggy Contract
+  contractAddress = '0x62eE4774c2a0b00169913Bbe374F9c5137011465'; // Smart Piggy Contract
   usdeAddress = '0xf805ce4F96e0EdD6f0b6cd4be22B34b92373d696';  //USDe
 }
 
@@ -57,18 +53,18 @@ else { //Sepolia
         Earn, Stake, and Speculate with Confidence
       </h1>
       <p className="mt-6 text-lg md:text-xl text-gray leading-relaxed">
-        Welcome to <span className="font-semibold text-black">Pyggy Bank</span>, the ultimate platform for combining 
+        Welcome to <span className="font-semibold text-black">Piggy Bank</span>, the ultimate platform for combining 
         steady returns with bold speculation.
       </p>
-      <div className="mt-8 space-y-3">
+      <div className="mt-2 space-y-3">
         <div className="p-3 rounded-lg">
           <h2 className="text-xl font-bold text-black">How It Works</h2>
           <ul className="mt-4 text-left text-gray space-y-4">
             <li>
-              <span className="font-bold text-black">1.</span> <strong>Stake Your USDe</strong>: Deposit USDe and earn consistent <strong>APY (29% currently)</strong>
+              <span className="font-bold text-black">1.</span> <strong>Stake Your USDe</strong>: Deposit USDe and earn consistent <strong>APY</strong> + your favourite Meme Coin
             </li>
             <li>
-              <span className="font-bold text-black">2.</span> <strong>Automated Speculative Growth</strong>: Accrued yield reinvested every 7 days into ERC-20 tokens, including meme coins.
+              <span className="font-bold text-black">2.</span> <strong>Automated Speculative Growth</strong>: Accrued yield from sUSD are reinvested every 7 days into ERC-20 tokens, including meme coins.
             </li>
             <li>
               <span className="font-bold text-black">3.</span> <strong>Seamless Redemption</strong>: Withdraw your initial USDe plus any speculative returns after a cooldown of 7 days.
