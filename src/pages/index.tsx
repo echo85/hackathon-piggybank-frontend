@@ -15,15 +15,15 @@ const [activeTab, setActiveTab] = useState("Stake");
 var contractAddress: Address;
 var usdeAddress: Address;
 if(chain && (chain.id == 1 || chain.id == 73571)) { //Ethereum Mainnet or VTestNest on Tenderly
-  contractAddress = '0x3099a3a1b0022163607408598e9d8a646f50e71d'; // Smart Piggy Contract 
+  contractAddress = '0xA2a62E819498e474eE7b9760A7a75A07822b43e1'; // Smart Piggy Contract 
   usdeAddress = '0x4c9EDD5852cd905f086C759E8383e09bff1E68B3';  //USDe
 }
 else if(chain && chain.id == 52085143) { //Ble Testnet
-  contractAddress = '0xbCd326BccB09B91e307F88F98C666f4C04F2f61e'; // Smart Piggy Contract
+  contractAddress = '0xE2fC214c6A7E7BFD7DdD2Aa4043E2660dFD75dBB'; // Smart Piggy Contract
   usdeAddress = '0x426E7d03f9803Dd11cb8616C65b99a3c0AfeA6dE';  //USDe
 }
 else { //Sepolia
-  contractAddress = '0x62eE4774c2a0b00169913Bbe374F9c5137011465'; // Smart Piggy Contract
+  contractAddress = '0x64472554D4CcfBF66D1E99a1177136E7e2047ccD'; // Smart Piggy Contract
   usdeAddress = '0xf805ce4F96e0EdD6f0b6cd4be22B34b92373d696';  //USDe
 }
 
