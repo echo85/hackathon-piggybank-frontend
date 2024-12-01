@@ -12,7 +12,7 @@ export const config = getDefaultConfig({
   projectId: 'YOUR_PROJECT_ID',
   chains: [
     sepolia,
-    bleTestnet,
+    //bleTestnet,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [vMainnet] : []),
 
   ],
