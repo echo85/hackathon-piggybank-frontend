@@ -187,7 +187,7 @@ function ButtonView({
           error,
         } = useWriteContract();
     
-        const { data: approvalReceiptData, isLoading: isApproving } =
+        const { data: approvalReceiptData, isLoading: isApproving, isSuccess: isSuccess } =
           useWaitForTransactionReceipt({
             hash: writeContractResult,
           });
@@ -214,7 +214,7 @@ function ButtonView({
                           args: [contractAddress, parseUnits(amount,18)],
                         });
                         console.log("approving spender to spend sell token");
-          
+                        console.log("approvata");
                         refetch();
                       }}
                       disabled={!walletClient || !amount || isPending}

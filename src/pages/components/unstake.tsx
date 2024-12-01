@@ -41,7 +41,6 @@ if (balanceData) {
   setAmount(maxAmount);
 }
 };
-// Simulazione della transazione
 const { data } = useSimulateContract({
   address: contractAddress,
   abi: contractABI,
@@ -122,7 +121,7 @@ if(balancePiggy) {
   return(
     <div className="flex justify-between items-center">
     <span className="text-sm text-gray-500">
-        Balance: {isLoading ? 'Loading...' : `${formatUnits(balancePiggy, 18)}`} {symbol}
+        Balance: {isLoading ? 'Loading...' : `${parseFloat(formatUnits(balancePiggy, 18)).toFixed(2)}`} {symbol}
     </span>
     
   </div>

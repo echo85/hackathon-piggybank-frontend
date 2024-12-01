@@ -5,7 +5,7 @@ export const vMainnet = defineChain({
   name: 'Virtual Ethereum Mainnet',
   nativeCurrency: { name: 'vEther', symbol: 'vETH', decimals: 18 },
   rpcUrls: {
-    default: { http: ['https://virtual.mainnet.rpc.tenderly.co/0321deab-5f87-44ec-82d3-d58bf8876874'] }
+    default: { http: ['https://virtual.mainnet.rpc.tenderly.co/64aff5e0-624b-4af0-b055-a6fedeb2dd83'] }
   },
   blockExplorers: {
     default: {
